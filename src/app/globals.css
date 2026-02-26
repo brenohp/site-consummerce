@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-consum-navy: #1e3a8a;
+  --color-consum-orange: #ea580c;
+  --color-consum-text: #334155;
+  --color-consum-bg: #f8fafc;
+}
+
+/* Forçamos a Montserrat via CSS padrão */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--color-consum-bg);
+  color: var(--color-consum-text);
+  
+  /* IMPORTANTE: Comentei as linhas de suavização. 
+     Às vezes o 'antialiased' é o que deixa a fonte fina demais no Windows. 
+     Vamos testar sem ele para ganhar "peso". */
+  /* -webkit-font-smoothing: antialiased; */
+  /* -moz-osx-font-smoothing: grayscale; */
+}

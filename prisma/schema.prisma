@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Modelo da Empresa (Cliente B2B)
+model Empresa {
+  id        String   @id @default(cuid())
+  nome      String
+  cnpj      String?  @unique
+  site      String?
+  status    String   @default("ATIVO") // Ex: ATIVO, PROSPECT, INATIVO
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relacionamento: Uma empresa tem vários contatos
+  contatos  Contato[]
+
+  @@map("empresas")
+}
+
+// Modelo de Contatos da Empresa
+model Contato {
+  id        String  @id @default(cuid())
+  nome      String
+  email     String
+  telefone  String?
+  cargo     String?
+  
+  // Chave Estrangeira
+  empresaId String
+  empresa   Empresa @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+
+  @@map("contatos")
+}
