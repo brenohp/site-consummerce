@@ -17,17 +17,18 @@ export default function Navbar() {
 
         {/* MENU DESKTOP */}
         <nav className="hidden md:flex items-center gap-7.5">
-          {["Início", "Soluções", "Parceiros", "A Empresa"].map((item) => (
+          {[
+            { name: "Início", path: "/" },
+            { name: "Soluções", path: "/solucoes" },
+            { name: "Parceiros", path: "/parceiros" },
+            { name: "A Empresa", path: "/empresa" },
+          ].map((item) => (
             <Link 
-              key={item} 
-              href="#" 
-              // EFEITOS AQUI:
-              // transition-all duration-300: Suaviza tudo
-              // hover:-translate-y-0.5: Sobe levemente
-              // hover:text-consum-navy: Troca a cor
+              key={item.name} 
+              href={item.path} 
               className="text-sm font-bold text-[#475569] transition-all duration-300 hover:-translate-y-0.5 hover:text-consum-navy"
             >
-              {item}
+              {item.name}
             </Link>
           ))}
         </nav>
