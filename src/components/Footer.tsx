@@ -19,7 +19,7 @@ export default function Footer() {
               <span className="text-consum-orange">merce</span>
             </Link>
             <p className="mb-4">
-              Tecnologia que conecta sua empresa ao futuro. Do site institucional ao sistema complexo.
+              Tecnologia que conecta sua empresa ao futuro. Soluções inteligentes para alavancar o seu negócio.
             </p>
             {/* mt-3.75 (15px) | gap-3.75 (15px) */}
             <div className="mt-3.75 flex gap-3.75">
@@ -46,15 +46,35 @@ export default function Footer() {
             {/* mb-5 (20px) */}
             <h4 className="mb-5 text-[16px] font-bold text-white">Navegação</h4>
             <ul>
-              {["Início", "Soluções", "Parceiros", "Sobre Nós"].map((item) => (
-                // mb-2.5 (10px)
-                <li key={item} className="mb-2.5">
-                  {/* hover:pl-1.25 (5px) */}
-                  <Link href="#" className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange">
-                    {item}
-                  </Link>
-                </li>
-              ))}
+              <li className="mb-2.5">
+                <Link href="/" className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange">
+                  Início
+                </Link>
+              </li>
+              <li className="mb-2.5">
+                <Link href="/solucoes" className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange">
+                  Soluções
+                </Link>
+              </li>
+              <li className="mb-2.5">
+                <Link href="/parceiros" className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange">
+                  Parceiros
+                </Link>
+              </li>
+              <li className="mb-2.5">
+                <Link href="/empresa" className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange">
+                  A Empresa
+                </Link>
+              </li>
+              {/* LINK ATUALIZADO: Trabalhe Conosco via E-mail */}
+              <li className="mb-2.5">
+                <a 
+                  href="mailto:contato@consummerce.com.br?subject=Vaga%20-%20Trabalhe%20Conosco" 
+                  className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange"
+                >
+                  Trabalhe Conosco
+                </a>
+              </li>
             </ul>
           </div>
 

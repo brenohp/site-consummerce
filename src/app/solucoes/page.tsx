@@ -21,6 +21,11 @@ export default function SolucoesPage() {
       desc: "Plataformas SaaS e ERPs personalizados acessíveis de qualquer lugar.",
     },
     {
+      icon: <FaShieldAlt />,
+      title: "Infra & Segurança",
+      desc: "Configuração de servidores, migração de e-mails corporativos e proteção de dados.",
+    },
+    {
       icon: <FaCogs />,
       title: "Automação de Processos",
       desc: "Robôs e scripts para eliminar tarefas manuais e reduzir custos operacionais.",
@@ -29,11 +34,6 @@ export default function SolucoesPage() {
       icon: <FaChartLine />,
       title: "Consultoria Tech",
       desc: "Análise de infraestrutura e planejamento estratégico de tecnologia.",
-    },
-    {
-      icon: <FaShieldAlt />,
-      title: "Segurança Digital",
-      desc: "Proteção de dados, LGPD e blindagem de servidores contra ataques.",
     },
   ];
 
