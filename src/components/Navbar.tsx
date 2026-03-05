@@ -12,6 +12,7 @@ export default function Navbar() {
     { name: "Soluções", path: "/solucoes" },
     { name: "Parceiros", path: "/parceiros" },
     { name: "A Empresa", path: "/empresa" },
+    { name: "Contato", path: "/contato" }, // ADICIONADO AQUI 👈
   ];
 
   return (
@@ -43,7 +44,7 @@ export default function Navbar() {
         {/* BOTÃO CTA DESKTOP */}
         <div className="hidden md:block">
           <Link 
-            href="mailto:contato@consummerce.com.br" 
+            href="/contato" 
             className="inline-block rounded-md bg-consum-navy px-6 py-2.5 text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-consum-orange hover:shadow-lg"
           >
             Fale Conosco
@@ -69,13 +70,13 @@ export default function Navbar() {
                 key={item.name}
                 href={item.path}
                 className="text-[16px] font-bold text-[#475569] hover:text-consum-orange"
-                onClick={() => setIsMenuOpen(false)} // Fecha o menu ao clicar num link
+                onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
             <Link 
-              href="mailto:contato@consummerce.com.br"
+              href="/contato"
               className="mt-2 inline-block rounded-md bg-consum-navy px-6 py-3 text-center text-[16px] font-bold text-white transition-colors hover:bg-consum-orange"
               onClick={() => setIsMenuOpen(false)}
             >
