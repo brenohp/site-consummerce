@@ -1,4 +1,4 @@
-import { FaAws, FaGoogle, FaMicrosoft } from "react-icons/fa";
+import { FaAws, FaGoogle, FaMicrosoft, FaDigitalOcean } from "react-icons/fa";
 
 export default function Partners() {
   const tecnologias = [
@@ -17,6 +17,11 @@ export default function Partners() {
       icon: <FaMicrosoft />,
       hoverColor: "group-hover:text-[#00A4EF]", // Azul oficial da Microsoft
     },
+    {
+      name: "DigitalOcean",
+      icon: <FaDigitalOcean />,
+      hoverColor: "group-hover:text-[#0069FF]", // Azul oficial da DigitalOcean
+    },
   ];
 
   return (
@@ -27,15 +32,15 @@ export default function Partners() {
           Plataformas de alta performance que utilizamos
         </h4>
 
-        {/* Grid de Logos - Espaçamento ajustado para 3 itens */}
-        <div className="flex flex-wrap items-center justify-center gap-12 md:gap-24">
+        {/* Grid de Logos - Flexbox ajusta automaticamente para 4 itens */}
+        <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20">
           
           {tecnologias.map((tech) => (
             <div 
               key={tech.name} 
               className="group flex cursor-default flex-col items-center justify-center transition-all duration-300 hover:-translate-y-2"
             >
-              {/* Ícone (Logo) - Tamanho aumentado para 60px */}
+              {/* Ícone (Logo) - Tamanho 60px */}
               <div className={`mb-3 text-[60px] text-[#94a3b8] transition-colors duration-300 ${tech.hoverColor}`}>
                 {tech.icon}
               </div>
