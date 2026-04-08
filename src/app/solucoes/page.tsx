@@ -102,7 +102,7 @@ export default function SolucoesPage() {
               Nossa equipe adora resolver o que parece impossível. Vamos conversar sobre o seu projeto.
             </p>
             <a 
-              href="https://wa.me/5516999999999" 
+              href="https://wa.me/551631701920" 
               className="inline-block rounded-full bg-consum-orange px-8 py-3 font-bold text-white transition-transform hover:scale-105"
             >
               Falar com Especialista

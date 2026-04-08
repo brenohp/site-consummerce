@@ -38,7 +38,7 @@ export default function ContatoPage() {
                 
                 {/* Destaque: Agendar Reunião */}
                 <a 
-                  href="https://wa.me/5516999999999?text=Olá,%20gostaria%20de%20agendar%20uma%20reunião%20online%20com%20a%20Consummerce" 
+                  href="https://wa.me/551631701920?text=Olá,%20gostaria%20de%20agendar%20uma%20reunião%20online%20com%20a%20Consummerce" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 rounded-xl border-2 border-consum-navy p-5 transition-all duration-300 hover:bg-slate-50 hover:-translate-y-1 shadow-sm"
@@ -54,7 +54,7 @@ export default function ContatoPage() {
 
                 {/* WhatsApp */}
                 <a 
-                  href="https://wa.me/5516999999999" 
+                  href="https://wa.me/551631701920" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 group p-2"
@@ -64,7 +64,7 @@ export default function ContatoPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-800 group-hover:text-green-600 transition-colors">WhatsApp</h4>
-                    <span className="text-sm text-slate-500">(16) 9999-9999</span>
+                    <span className="text-sm text-slate-500">(16) 3170-1920</span>
                   </div>
                 </a>
 

@@ -111,8 +111,8 @@ export default function Footer() {
             
             <div className="mb-3 flex items-center gap-2.5">
               <FaPhoneAlt className="w-3.75 text-consum-orange" />
-              <Link href="tel:1699999999" className="hover:text-white">
-                (16) 9999-9999
+              <Link href="tel:1631701920" className="hover:text-white">
+                (16) 3170-1920
               </Link>
             </div>
             
