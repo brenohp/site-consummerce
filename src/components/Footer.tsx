@@ -3,26 +3,24 @@ import { FaInstagram, FaLinkedinIn, FaFacebookF, FaEnvelope, FaPhoneAlt, FaMapMa
 
 export default function Footer() {
   return (
-    // mt-12.5 (50px) | pt-17.5 (70px) | pb-7.5 (30px)
-    <footer className="mt-12.5 bg-[#0f172a] pt-17.5 pb-7.5 text-[14px] text-[#94a3b8]">
-      
-      <div className="container mx-auto max-w-275 px-5">
+    <footer className="bg-[#0b1120] pt-20 pb-10 text-[15px] text-slate-400 border-t border-slate-800">
+      <div className="container mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         
-        {/* mb-12.5 (50px) | gap-7.5 (30px) */}
-        <div className="mb-12.5 grid grid-cols-1 gap-7.5 md:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
+        {/* Grid Principal do Rodapé */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           
-          {/* COLUNA 1 */}
+          {/* COLUNA 1 - Marca e Descrição */}
           <div className="flex flex-col">
-            {/* mb-3.75 (15px) */}
-            <Link href="/" className="mb-3.75 block text-[22px] font-black leading-none">
+            <Link href="/" className="mb-6 block text-[28px] font-black leading-none tracking-tight transition-opacity hover:opacity-80">
               <span className="text-white">Consum</span>
               <span className="text-consum-orange">merce</span>
             </Link>
-            <p className="mb-4">
-              Tecnologia que conecta sua empresa ao futuro. Soluções inteligentes para alavancar o seu negócio.
+            <p className="mb-6 leading-relaxed">
+              Tecnologia que conecta sua empresa ao futuro. Desenhamos, construímos e escalamos soluções digitais inteligentes.
             </p>
-            {/* mt-3.75 (15px) | gap-3.75 (15px) */}
-            <div className="mt-3.75 flex gap-3.75">
+            
+            {/* Redes Sociais */}
+            <div className="flex gap-4">
               {[
                 { icon: <FaInstagram />, href: "https://instagram.com/consummerce" },
                 { icon: <FaLinkedinIn />, href: "#" },
@@ -32,8 +30,7 @@ export default function Footer() {
                   key={index}
                   href={social.href}
                   target="_blank"
-                  // h-8.75 (35px) | w-8.75 (35px)
-                  className="flex h-8.75 w-8.75 items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-300 hover:bg-consum-orange"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-white transition-all duration-300 hover:-translate-y-1 hover:bg-consum-orange hover:shadow-lg hover:shadow-consum-orange/20"
                 >
                   {social.icon}
                 </Link>
@@ -41,36 +38,26 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* COLUNA 2 */}
+          {/* COLUNA 2 - Navegação */}
           <div>
-            {/* mb-5 (20px) */}
-            <h4 className="mb-5 text-[16px] font-bold text-white">Navegação</h4>
-            <ul>
-              <li className="mb-2.5">
-                <Link href="/" className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange">
-                  Início
-                </Link>
-              </li>
-              <li className="mb-2.5">
-                <Link href="/solucoes" className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange">
-                  Soluções
-                </Link>
-              </li>
-              <li className="mb-2.5">
-                <Link href="/parceiros" className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange">
-                  Parceiros
-                </Link>
-              </li>
-              <li className="mb-2.5">
-                <Link href="/empresa" className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange">
-                  A Empresa
-                </Link>
-              </li>
-              {/* LINK ATUALIZADO: Trabalhe Conosco via E-mail */}
-              <li className="mb-2.5">
+            <h4 className="mb-6 text-[14px] font-bold text-white tracking-widest uppercase">Navegação</h4>
+            <ul className="flex flex-col gap-3">
+              {[
+                { name: "Início", path: "/" },
+                { name: "Soluções", path: "/solucoes" },
+                { name: "Parceiros", path: "/parceiros" },
+                { name: "A Empresa", path: "/empresa" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.path} className="transition-colors duration-300 hover:text-consum-orange">
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+              <li>
                 <a 
                   href="mailto:contato@consummerce.com.br?subject=Vaga%20-%20Trabalhe%20Conosco" 
-                  className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange"
+                  className="transition-colors duration-300 hover:text-consum-orange"
                 >
                   Trabalhe Conosco
                 </a>
@@ -78,16 +65,19 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* COLUNA 3 */}
+          {/* COLUNA 3 - O que fazemos */}
           <div>
-            {/* mb-5 (20px) */}
-            <h4 className="mb-5 text-[16px] font-bold text-white">O que fazemos</h4>
-            <ul>
-              {["Desenvolvimento Web", "Sistemas Sob Medida", "E-commerce & Vendas", "Consultoria Digital"].map((item) => (
-                // mb-2.5 (10px)
-                <li key={item} className="mb-2.5">
-                  {/* hover:pl-1.25 (5px) */}
-                  <Link href="#" className="transition-all duration-300 hover:pl-1.25 hover:text-consum-orange">
+            <h4 className="mb-6 text-[14px] font-bold text-white tracking-widest uppercase">O que fazemos</h4>
+            <ul className="flex flex-col gap-3">
+              {[
+                "Criação de Sites", 
+                "Sistemas Sob Medida", 
+                "E-commerce & Vendas", 
+                "Aplicativos (iOS/Android)", 
+                "Consultoria Digital"
+              ].map((item) => (
+                <li key={item}>
+                  <Link href="/solucoes" className="transition-colors duration-300 hover:text-consum-orange">
                     {item}
                   </Link>
                 </li>
@@ -95,38 +85,50 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* COLUNA 4 */}
+          {/* COLUNA 4 - Contato */}
           <div>
-            {/* mb-5 (20px) */}
-            <h4 className="mb-5 text-[16px] font-bold text-white">Fale Conosco</h4>
-            
-            {/* mb-3 (12px) | gap-2.5 (10px) */}
-            <div className="mb-3 flex items-center gap-2.5">
-              {/* w-3.75 (15px) */}
-              <FaEnvelope className="w-3.75 text-consum-orange" />
-              <Link href="mailto:contato@consummerce.com.br" className="hover:text-white">
-                contato@consummerce.com.br
-              </Link>
-            </div>
-            
-            <div className="mb-3 flex items-center gap-2.5">
-              <FaPhoneAlt className="w-3.75 text-consum-orange" />
-              <Link href="tel:1631701920" className="hover:text-white">
-                (16) 3170-1920
-              </Link>
-            </div>
-            
-            <div className="mb-3 flex items-center gap-2.5">
-              <FaMapMarkerAlt className="w-3.75 text-consum-orange" />
-              <span>Ribeirão Preto - SP</span>
+            <h4 className="mb-6 text-[14px] font-bold text-white tracking-widest uppercase">Fale Conosco</h4>
+            <div className="flex flex-col gap-4">
+              
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-800 text-consum-orange">
+                  <FaEnvelope className="text-sm" />
+                </div>
+                <Link href="mailto:contato@consummerce.com.br" className="hover:text-white transition-colors">
+                  contato@consummerce.com.br
+                </Link>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-800 text-consum-orange">
+                  <FaPhoneAlt className="text-sm" />
+                </div>
+                <Link href="tel:1631701920" className="hover:text-white transition-colors">
+                  (16) 3170-1920
+                </Link>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-800 text-consum-orange">
+                  <FaMapMarkerAlt className="text-sm" />
+                </div>
+                <span>Ribeirão Preto - SP</span>
+              </div>
+
             </div>
           </div>
+
         </div>
 
-        {/* pt-7.5 (30px) */}
-        <div className="border-t border-[#1e293b] pt-7.5 text-center text-[12px]">
-          <p>&copy; 2026 Consummerce. Todos os direitos reservados.</p>
+        {/* Linha Divisória e Copyright */}
+        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[13px]">
+          <p>&copy; {new Date().getFullYear()} Consummerce. Todos os direitos reservados.</p>
+          <div className="flex gap-6">
+            <Link href="#" className="hover:text-white transition-colors">Termos de Uso</Link>
+            <Link href="#" className="hover:text-white transition-colors">Política de Privacidade</Link>
+          </div>
         </div>
+        
       </div>
     </footer>
   );

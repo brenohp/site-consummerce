@@ -4,55 +4,51 @@ export default function Partners() {
   const tecnologias = [
     {
       name: "Amazon AWS",
-      icon: <FaAws />,
-      hoverColor: "group-hover:text-[#FF9900]", // Laranja oficial da AWS
+      // Mantemos as cores oficiais da marca dentro do ícone pequeno
+      icon: <FaAws className="text-[#FF9900] text-xl" />,
     },
     {
       name: "Google Cloud",
-      icon: <FaGoogle />,
-      hoverColor: "group-hover:text-[#4285F4]", // Azul oficial do Google
+      icon: <FaGoogle className="text-[#4285F4] text-xl" />,
     },
     {
       name: "Microsoft Azure",
-      icon: <FaMicrosoft />,
-      hoverColor: "group-hover:text-[#00A4EF]", // Azul oficial da Microsoft
+      icon: <FaMicrosoft className="text-[#00A4EF] text-xl" />,
     },
     {
       name: "DigitalOcean",
-      icon: <FaDigitalOcean />,
-      hoverColor: "group-hover:text-[#0069FF]", // Azul oficial da DigitalOcean
+      icon: <FaDigitalOcean className="text-[#0069FF] text-xl" />,
     },
   ];
 
   return (
-    <section className="bg-[#e2e8f0] py-12 text-center">
-      <div className="container mx-auto max-w-275 px-5">
+    <section className="bg-white py-20 border-b border-slate-100">
+      <div className="container mx-auto max-w-275 px-5 text-center">
         
-        <h4 className="mb-10 text-[12px] font-bold uppercase tracking-[2px] text-[#64748b]">
-          Plataformas de alta performance que utilizamos
-        </h4>
+        {/* Etiqueta estilo Devskin */}
+        <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-consum-orange/10 text-consum-orange text-[12px] font-bold mb-6 tracking-widest uppercase">
+          Tecnologias que usamos
+        </div>
 
-        {/* Grid de Logos - Flexbox ajusta automaticamente para 4 itens */}
-        <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20">
-          
+        <h2 className="mb-12 text-3xl md:text-4xl font-black text-consum-navy tracking-tight">
+          As melhores infraestruturas do mercado
+        </h2>
+
+        {/* Grid de "Pills/Badges" com o layout Premium */}
+        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-5">
           {tecnologias.map((tech) => (
             <div 
               key={tech.name} 
-              className="group flex cursor-default flex-col items-center justify-center transition-all duration-300 hover:-translate-y-2"
+              className="group flex cursor-default items-center justify-center gap-3 rounded-full border border-slate-200 bg-white px-6 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-consum-orange hover:shadow-md"
             >
-              {/* Ícone (Logo) - Tamanho 60px */}
-              <div className={`mb-3 text-[60px] text-[#94a3b8] transition-colors duration-300 ${tech.hoverColor}`}>
-                {tech.icon}
-              </div>
-              
-              {/* Nome da Tecnologia */}
-              <span className="text-[14px] font-bold text-[#64748b] transition-colors duration-300 group-hover:text-consum-navy">
+              {tech.icon}
+              <span className="text-[15px] font-bold text-slate-700 transition-colors duration-300 group-hover:text-consum-navy">
                 {tech.name}
               </span>
             </div>
           ))}
-
         </div>
+
       </div>
     </section>
   );
