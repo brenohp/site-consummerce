@@ -124,8 +124,9 @@ export default function Footer() {
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[13px]">
           <p>&copy; {new Date().getFullYear()} Consummerce. Todos os direitos reservados.</p>
           <div className="flex gap-6">
-            <Link href="#" className="hover:text-white transition-colors">Termos de Uso</Link>
-            <Link href="#" className="hover:text-white transition-colors">Política de Privacidade</Link>
+            <Link href="/termos-de-uso" className="hover:text-white transition-colors">Termos de Uso</Link>
+            {/* O link da Política de Privacidade foi atualizado abaixo */}
+            <Link href="/politica-de-privacidade" className="hover:text-white transition-colors">Política de Privacidade</Link>
           </div>
         </div>
         

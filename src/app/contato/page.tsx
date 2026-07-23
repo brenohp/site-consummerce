@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Link from "next/link";
-import { FaWhatsapp, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { FaWhatsapp, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
 export default function ContatoPage() {
   return (
@@ -75,13 +75,6 @@ export default function ContatoPage() {
                 <h3 className="mb-8 text-2xl font-bold">Entre em contato</h3>
                 
                 <div className="flex flex-col gap-6">
-                  <div className="flex items-start gap-4">
-                    <FaMapMarkerAlt className="mt-1 shrink-0 text-xl text-consum-orange" />
-                    <div>
-                      <p className="font-medium text-white/90">Av. Presidente Vargas, 2000</p>
-                      <p className="text-sm text-white/70">Jardim América, Ribeirão Preto - SP</p>
-                    </div>
-                  </div>
 
                   <div className="flex items-center gap-4">
                     <FaPhoneAlt className="shrink-0 text-xl text-consum-orange" />
@@ -103,7 +96,6 @@ export default function ContatoPage() {
               <div className="mt-16 pt-8 border-t border-white/10">
                 <p className="text-sm font-bold text-white/50 mb-4 uppercase tracking-wider">Nossos Parceiros</p>
                 <div className="flex gap-4 text-white/40">
-                  {/* Você pode substituir por imagens reais dos logos depois */}
                   <span className="font-bold">AWS</span>
                   <span className="font-bold">Google Cloud</span>
                   <span className="font-bold">Azure</span>

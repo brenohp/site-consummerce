@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+// Importe o novo componente
+import CookieBanner from "@/components/CookieBanner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,13 +31,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://www.consummerce.com.br", // Quando tiver o domínio oficial, atualize aqui
+    url: "https://www.consummerce.com.br", 
     title: "Consummerce | Tecnologia de Alta Performance",
     description: "Eleve o nível do seu negócio com nossas soluções de tecnologia e infraestrutura.",
     siteName: "Consummerce",
     images: [
       {
-        url: "/og-image.jpg", // Mais para frente, podemos criar essa imagem e colocar na pasta public
+        url: "/og-image.jpg", 
         width: 1200,
         height: 630,
         alt: "Consummerce - Tecnologia e Soluções Digitais",
@@ -55,7 +57,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        {/* Adicione o banner aqui, no final do body */}
+        <CookieBanner />
+      </body>
     </html>
   );
 }
