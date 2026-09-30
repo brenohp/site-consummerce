@@ -8,33 +8,78 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+// Modelo de Utilizadores (Acesso ao Dashboard)
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("usuarios")
+}
+
 // Modelo da Empresa (Cliente B2B)
 model Empresa {
   id        String   @id @default(cuid())
   nome      String
   cnpj      String?  @unique
   site      String?
-  status    String   @default("ATIVO") // Ex: ATIVO, PROSPECT, INATIVO
+  status    String   @default("ATIVO") // ATIVO (recorrência), INATIVO, PROSPECT
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relacionamento: Uma empresa tem vários contatos
   contatos  Contato[]
+  servicos  Servico[]
 
   @@map("empresas")
 }
 
 // Modelo de Contatos da Empresa
 model Contato {
-  id        String  @id @default(cuid())
-  nome      String
-  email     String
-  telefone  String?
-  cargo     String?
+  id               String  @id @default(cuid())
+  nome             String
+  email            String
+  telefone         String?
+  cargo            String?
+  statusProspeccao String  @default("NAO_ABORDADO") // NAO_ABORDADO, EM_CONTATO, NEGOCIACAO, FECHADO, PERDIDO
   
-  // Chave Estrangeira
   empresaId String
   empresa   Empresa @relation(fields: [empresaId], references: [id], onDelete: Cascade)
 
   @@map("contatos")
+}
+
+// NOVO: Registo de Serviços/Projetos vendidos
+model Servico {
+  id          String   @id @default(cuid())
+  titulo      String
+  descricao   String?
+  valor       Float
+  status      String   @default("EM_ANDAMENTO") // EM_ANDAMENTO, CONCLUIDO, CANCELADO
+  
+  empresaId   String
+  empresa     Empresa  @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("servicos")
+}
+
+// NOVO: Controlo Financeiro (O seu Gestor)
+model TransacaoFinanceira {
+  id          String   @id @default(cuid())
+  descricao   String
+  tipo        String   // RECEITA ou DESPESA
+  valor       Float
+  categoria   String?  // Ex: DESENVOLVIMENTO, INFRAESTRUTURA, IMPOSTOS, MARKETING
+  dataPgto    DateTime @default(now())
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("transacoes_financeiras")
 }

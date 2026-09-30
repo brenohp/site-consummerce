@@ -1,76 +1,74 @@
 import prisma from "@/lib/prisma";
-import { FaBuilding, FaUsers, FaCheckCircle } from "react-icons/fa";
+import { FaBuilding, FaUsers, FaLaptopCode } from "react-icons/fa";
 
-// ESTA LINHA É O SEGREDO: Obriga a página a recarregar os dados do banco sempre
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardHome() {
-  
-  // 1. Busca APENAS empresas com status "ATIVO"
-  const empresasAtivas = await prisma.empresa.count({
+  // 1. Clientes Ativos (Recorrência/Vínculo ativo)
+  const clientesAtivos = await prisma.empresa.count({
     where: { status: "ATIVO" }
   });
 
-  // 2. Busca o total geral de contatos
+  // 2. Contatos (Geral e Não Abordados para prospecção)
   const totalContatos = await prisma.contato.count();
+  const contatosNaoAbordados = await prisma.contato.count({
+    where: { statusProspeccao: "NAO_ABORDADO" }
+  });
 
-  // 3. Busca crescimento (últimos 30 dias)
-  const data30DiasAtras = new Date();
-  data30DiasAtras.setDate(data30DiasAtras.getDate() - 30);
-  
-  const novasEmpresas = await prisma.empresa.count({
-    where: {
-      status: "ATIVO", // Conta crescimento apenas de ativos também
-      createdAt: {
-        gte: data30DiasAtras
-      }
-    }
+  // 3. Serviços/Projetos 
+  const servicosRealizados = await prisma.servico.count({
+    where: { status: "CONCLUIDO" }
+  });
+  const servicosEmAndamento = await prisma.servico.count({
+    where: { status: "EM_ANDAMENTO" }
   });
 
   return (
     <div>
       <header className="mb-8">
         <h2 className="text-3xl font-black text-slate-800">Visão Geral</h2>
-        <p className="text-slate-500">Bem-vindo ao painel de controle ConsumSys.</p>
+        <p className="text-slate-500">Acompanhe as suas empresas, prospecções e serviços operacionais.</p>
       </header>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        {/* Card 1: Empresas Ativas */}
+        {/* Card 1: Clientes Ativos */}
         <div className="rounded-lg bg-white p-6 shadow-sm border border-slate-200">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-bold text-slate-500">Empresas Ativas</h3>
-            <div className="rounded-full bg-blue-100 p-3 text-consum-navy">
+            <h3 className="font-bold text-slate-500">Clientes Ativos</h3>
+            <div className="rounded-full bg-blue-100 p-3 text-[#1e3a8a]">
               <FaBuilding size={20} />
             </div>
           </div>
-          <p className="text-4xl font-black text-slate-800">{empresasAtivas}</p>
-          <span className="text-xs text-green-600 font-bold">
-            +{novasEmpresas} ativos recentes
-          </span>
+          <p className="text-4xl font-black text-slate-800">{clientesAtivos}</p>
+          <span className="text-xs text-slate-400">Com vínculo/recorrência</span>
         </div>
 
         {/* Card 2: Contatos */}
         <div className="rounded-lg bg-white p-6 shadow-sm border border-slate-200">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-bold text-slate-500">Total de Contatos</h3>
-            <div className="rounded-full bg-orange-100 p-3 text-consum-orange">
+            <h3 className="font-bold text-slate-500">Contatos Cadastrados</h3>
+            <div className="rounded-full bg-orange-100 p-3 text-[#ea580c]">
               <FaUsers size={20} />
             </div>
           </div>
           <p className="text-4xl font-black text-slate-800">{totalContatos}</p>
-          <span className="text-xs text-slate-400">Pessoas cadastradas</span>
+          <span className="text-xs text-orange-600 font-bold">
+            {contatosNaoAbordados} aguardando abordagem
+          </span>
         </div>
 
-        {/* Card 3: Status */}
+        {/* Card 3: Serviços */}
         <div className="rounded-lg bg-white p-6 shadow-sm border border-slate-200">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-bold text-slate-500">Status do Sistema</h3>
-            <div className="rounded-full bg-green-100 p-3 text-green-600">
-              <FaCheckCircle size={20} />
+            <h3 className="font-bold text-slate-500">Serviços Realizados</h3>
+            <div className="rounded-full bg-purple-100 p-3 text-purple-600">
+              <FaLaptopCode size={20} />
             </div>
           </div>
-          <p className="text-xl font-black text-slate-800">Operacional</p>
-          <span className="text-xs text-slate-400">Conexão segura</span>
+          <p className="text-4xl font-black text-slate-800">{servicosRealizados}</p>
+          <span className="text-xs text-purple-600 font-bold">
+            {servicosEmAndamento} em andamento neste momento
+          </span>
         </div>
       </div>
     </div>
