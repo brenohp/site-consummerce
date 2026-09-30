@@ -23,28 +23,33 @@ model User {
 
 // Modelo da Empresa (Cliente B2B)
 model Empresa {
-  id        String   @id @default(cuid())
-  nome      String
-  cnpj      String?  @unique
-  site      String?
-  status    String   @default("ATIVO") // ATIVO (recorrência), INATIVO, PROSPECT
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(cuid())
+  nome         String
+  cnpj         String?  @unique
+  telefone     String?  // NOVO: Telefone principal da empresa
+  endereco     String?  // NOVO: Endereço físico
+  site         String?
+  status       String   @default("ATIVO") // ATIVO, INATIVO, PROSPECT
+  gerenciaSite Boolean  @default(false)   // NOVO: Indica se gere o site/domínio
+  anotacoes    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  contatos  Contato[]
-  servicos  Servico[]
+  contatos   Contato[]
+  servicos   Servico[]
+  transacoes TransacaoFinanceira[] 
 
   @@map("empresas")
 }
 
-// Modelo de Contatos da Empresa
+// Modelo de Contatos (As pessoas físicas ligadas à empresa)
 model Contato {
   id               String  @id @default(cuid())
   nome             String
   email            String
-  telefone         String?
-  cargo            String?
-  statusProspeccao String  @default("NAO_ABORDADO") // NAO_ABORDADO, EM_CONTATO, NEGOCIACAO, FECHADO, PERDIDO
+  telefone         String? // Telefone direto da pessoa
+  cargo            String? // Ex: Gerente de TI, Dono, Financeiro
+  statusProspeccao String  @default("NAO_ABORDADO") 
   
   empresaId String
   empresa   Empresa @relation(fields: [empresaId], references: [id], onDelete: Cascade)
@@ -52,13 +57,14 @@ model Contato {
   @@map("contatos")
 }
 
-// NOVO: Registo de Serviços/Projetos vendidos
+// Registo de Serviços/Projetos vendidos
 model Servico {
   id          String   @id @default(cuid())
   titulo      String
   descricao   String?
   valor       Float
-  status      String   @default("EM_ANDAMENTO") // EM_ANDAMENTO, CONCLUIDO, CANCELADO
+  status      String   @default("EM_ANDAMENTO")
+  dataServico DateTime @default(now()) // NOVO: Data de realização do serviço
   
   empresaId   String
   empresa     Empresa  @relation(fields: [empresaId], references: [id], onDelete: Cascade)
@@ -69,14 +75,17 @@ model Servico {
   @@map("servicos")
 }
 
-// NOVO: Controlo Financeiro (O seu Gestor)
+// Controlo Financeiro
 model TransacaoFinanceira {
   id          String   @id @default(cuid())
   descricao   String
-  tipo        String   // RECEITA ou DESPESA
+  tipo        String   
   valor       Float
-  categoria   String?  // Ex: DESENVOLVIMENTO, INFRAESTRUTURA, IMPOSTOS, MARKETING
+  categoria   String?  
   dataPgto    DateTime @default(now())
+  
+  empresaId   String?  
+  empresa     Empresa? @relation(fields: [empresaId], references: [id], onDelete: SetNull)
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

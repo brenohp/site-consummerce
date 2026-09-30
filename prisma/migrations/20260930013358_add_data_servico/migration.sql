@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "servicos" ADD COLUMN     "dataServico" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

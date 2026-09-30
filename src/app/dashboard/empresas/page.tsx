@@ -1,91 +1,129 @@
-import Link from "next/link";
 import prisma from "@/lib/prisma";
-import { FaPlus, FaBuilding } from "react-icons/fa";
+import Link from "next/link";
+import { FaBuilding, FaPlus, FaTrash, FaExternalLinkAlt, FaKey, FaEdit } from "react-icons/fa";
+import { revalidatePath } from "next/cache";
 
-// ADICIONE ISTO PARA A LISTA APARECER SEMPRE ATUALIZADA
 export const dynamic = 'force-dynamic';
 
 export default async function EmpresasPage() {
   const empresas = await prisma.empresa.findMany({
-    orderBy: { createdAt: "desc" },
-    include: { _count: { select: { contatos: true } } },
+    orderBy: { createdAt: 'desc' },
+    include: {
+      _count: {
+        select: { contatos: true, servicos: true }
+      }
+    }
   });
+
+  async function deletarEmpresa(formData: FormData) {
+    "use server";
+    const id = formData.get("id") as string;
+    await prisma.empresa.delete({ where: { id } });
+    revalidatePath("/dashboard/empresas");
+  }
 
   return (
     <div>
-      <div className="mb-8 flex items-center justify-between">
+      <header className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <h2 className="text-3xl font-black text-slate-800">Empresas</h2>
-          <p className="text-slate-500">Gerencie seus clientes e parceiros.</p>
+          <p className="text-slate-500">Faça a gestão dos seus clientes e prospectos.</p>
         </div>
-        <Link
-          href="/dashboard/empresas/novo"
-          className="flex items-center gap-2 rounded-lg bg-consum-navy px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-consum-orange"
+        
+        <Link 
+          href="/dashboard/empresas/nova"
+          className="flex items-center justify-center gap-2 bg-[#1e3a8a] text-white px-5 py-2.5 rounded-lg font-bold hover:bg-[#152c6b] transition-colors"
         >
           <FaPlus /> Nova Empresa
         </Link>
-      </div>
+      </header>
 
-      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
-        <table className="w-full text-left text-sm text-slate-600">
-          <thead className="bg-slate-50 text-xs uppercase text-slate-500">
-            <tr>
-              <th className="px-6 py-4 font-bold">Empresa</th>
-              <th className="px-6 py-4 font-bold">CNPJ</th>
-              <th className="px-6 py-4 font-bold">Status</th>
-              <th className="px-6 py-4 font-bold">Contatos</th>
-              <th className="px-6 py-4 font-bold text-right">Ações</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100">
-            {empresas.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="px-6 py-8 text-center text-slate-400">
-                  Nenhuma empresa cadastrada ainda.
-                </td>
+      <div className="rounded-lg bg-white shadow-sm border border-slate-200 overflow-hidden">
+        <div className="p-6 border-b border-slate-100">
+          <h3 className="text-lg font-bold text-slate-800">Lista de Clientes</h3>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-slate-50 border-b border-slate-100 text-sm text-slate-500">
+                <th className="p-4 font-bold">Empresa</th>
+                <th className="p-4 font-bold">Status</th>
+                <th className="p-4 font-bold">Contatos</th>
+                <th className="p-4 font-bold">Serviços</th>
+                <th className="p-4 font-bold text-right">Ações</th>
               </tr>
-            ) : (
-              empresas.map((empresa) => (
-                <tr key={empresa.id} className="hover:bg-slate-50">
-                  <td className="px-6 py-4 font-medium text-slate-900">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-400">
-                        <FaBuilding />
-                      </div>
-                      <div>
-                        {/* Link para detalhes da empresa */}
-                        <Link href={`/dashboard/empresas/${empresa.id}`} className="font-bold hover:text-consum-navy hover:underline">
-                          {empresa.nome}
-                        </Link>
-                        <div className="text-xs text-slate-400">{empresa.site || "Sem site"}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">{empresa.cnpj || "-"}</td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`inline-flex rounded-full px-2 py-1 text-xs font-bold ${
-                        empresa.status === "ATIVO"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
-                    >
-                      {empresa.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="font-bold">{empresa._count.contatos}</span> contatos
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <Link href={`/dashboard/empresas/${empresa.id}`} className="text-consum-navy hover:text-consum-orange font-bold">
-                      Editar
-                    </Link>
+            </thead>
+            <tbody>
+              {empresas.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="p-8 text-center text-slate-400">
+                    Nenhuma empresa registada.
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                empresas.map((empresa) => (
+                  <tr key={empresa.id} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+                    <td className="p-4 text-sm text-slate-800 font-bold">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded bg-blue-100 text-[#1e3a8a] flex items-center justify-center">
+                          <FaBuilding size={14} />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            {empresa.nome}
+                            {/* Aqui está a chavinha que aparece se você gerencia o site! */}
+                            {empresa.gerenciaSite && (
+                              <span className="text-[#ea580c]" title="Você faz a gestão deste site/domínio">
+                                <FaKey size={12} />
+                              </span>
+                            )}
+                          </div>
+                          {empresa.telefone && <span className="block text-xs text-slate-400 font-normal">{empresa.telefone}</span>}
+                        </div>
+                      </div>
+                    </td>
+                    <td className="p-4">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${
+                        empresa.status === "ATIVO" ? "bg-green-100 text-green-700" : 
+                        empresa.status === "PROSPECT" ? "bg-orange-100 text-orange-700" : 
+                        "bg-slate-100 text-slate-700"
+                      }`}>
+                        {empresa.status}
+                      </span>
+                    </td>
+                    <td className="p-4 text-sm text-slate-600 font-medium">
+                      {empresa._count.contatos}
+                    </td>
+                    <td className="p-4 text-sm text-slate-600 font-medium">
+                      {empresa._count.servicos}
+                    </td>
+                    <td className="p-4 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        {/* AQUI ESTÁ O LÁPIS DE EDIÇÃO */}
+                        <Link 
+                          href={`/dashboard/empresas/${empresa.id}`} 
+                          className="text-slate-400 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-blue-50" 
+                          title="Editar Cliente"
+                        >
+                          <FaEdit />
+                        </Link>
+                        
+                        {/* Botão de Excluir */}
+                        <form action={deletarEmpresa}>
+                          <input type="hidden" name="id" value={empresa.id} />
+                          <button type="submit" className="text-slate-400 hover:text-red-600 transition-colors p-2 rounded-lg hover:bg-red-50" title="Excluir">
+                            <FaTrash />
+                          </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

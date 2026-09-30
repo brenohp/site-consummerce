@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react"; // Importação para o logout funcionar
-import { FaBuilding, FaUsers, FaChartPie, FaCog, FaSignOutAlt, FaWallet } from "react-icons/fa"; // FaWallet adicionado
+import { signOut } from "next-auth/react";
+import { FaBuilding, FaUsers, FaChartPie, FaCog, FaSignOutAlt, FaWallet, FaCogs } from "react-icons/fa";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -12,7 +12,8 @@ export default function Sidebar() {
     { name: "Visão Geral", icon: <FaChartPie />, path: "/dashboard" },
     { name: "Empresas", icon: <FaBuilding />, path: "/dashboard/empresas" },
     { name: "Contatos", icon: <FaUsers />, path: "/dashboard/contatos" },
-    { name: "Financeiro", icon: <FaWallet />, path: "/dashboard/financeiro" }, // Nova aba adicionada
+    { name: "Financeiro", icon: <FaWallet />, path: "/dashboard/financeiro" },
+    { name: "Serviços", icon: <FaCogs />, path: "/dashboard/servicos" }, // Adicionado aqui
     { name: "Configurações", icon: <FaCog />, path: "/dashboard/config" },
   ];
 
@@ -50,7 +51,7 @@ export default function Sidebar() {
       {/* Botão de Sair (Fixo no final) */}
       <div className="absolute bottom-8 left-0 w-full px-4">
         <button 
-          onClick={() => signOut({ callbackUrl: "/login" })} // Ação real de logout
+          onClick={() => signOut({ callbackUrl: "/login" })}
           className="flex w-full items-center justify-center gap-2 rounded-lg border border-white/20 p-3 text-sm font-bold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
         >
           <FaSignOutAlt />
